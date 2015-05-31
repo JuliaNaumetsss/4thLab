@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 using System.Xml.Serialization;
 
 namespace Films
@@ -21,8 +22,10 @@ namespace Films
         }
         object current;
         public List<object> myList = new List<object>();
-        public Boolean inputFlag;
+        public Boolean inputFlag = false, isNewClass = false;
         public Type[] extraTypes, types;
+        public string currentPath;
+        public Assembly SampleAssembly;
         public object GetInstance(string strFullyQualifiedName)
         {
             Type t = Type.GetType(strFullyQualifiedName);
@@ -34,9 +37,17 @@ namespace Films
         }
         private void Add_Click(object sender, EventArgs e)
         {
-            string typeOfClass;
-            typeOfClass ="Films." + listOfClasses.SelectedItem.ToString();
-            current = GetInstance(typeOfClass);
+            string typeOfClass = "";
+            MessageBox.Show(listOfClasses.SelectedIndex.ToString());
+            if (listOfClasses.SelectedIndex < 3)
+            {
+                typeOfClass = "Films." + listOfClasses.SelectedItem.ToString();
+                current = GetInstance(typeOfClass);
+            }
+            else
+            {
+                current = Activator.CreateInstance(types[listOfClasses.SelectedIndex - 3]);
+            }
             myList.Add(current);
             listCreateObjects.Items.Add(getName(current.GetType().ToString()));
             
@@ -153,10 +164,10 @@ namespace Films
         }
         private void getTypesArray()
         {
-           /* if (addClasses.Checked == true)
+            if (isNewClass == true)
             {
-                extraTypes = new Type[types.Length + 6];
-                int count = 6;
+                extraTypes = new Type[types.Length + 3];
+                int count = 3;
                 foreach (Type tempType in types)
                 {
                     extraTypes[count] = tempType;
@@ -165,9 +176,9 @@ namespace Films
             }
             else
             {
-                extraTypes = new Type[6];
-            }*/
-            extraTypes = new Type[3];
+                extraTypes = new Type[3];
+            }
+            //extraTypes = new Type[3];
             extraTypes[0] = typeof(Cartoons);
             extraTypes[1] = typeof(Fiction);
             extraTypes[2] = typeof(Melodrama);
@@ -186,6 +197,45 @@ namespace Films
             myList = myCollection.myList;
             foreach (object obj in myList)
                 listCreateObjects.Items.Add(getName(obj.ToString()));
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textBox1.Text = openFileDialog1.FileName;
+                //openFileDialog1.Filter = "Text Files (.dll)|*.dll";
+                currentPath = textBox1.Text;
+                string buf = currentPath.Substring(currentPath.IndexOf(".") + 1, currentPath.Length - currentPath.IndexOf(".") - 1);
+                if (buf != "dll")
+                {
+                    currentPath = "";
+                    textBox1.Text = "";
+                    MessageBox.Show("Выберите файл расширением dll");
+                    return;
+                }
+            }
+            
+        }
+
+        private void AddClass_Click(object sender, EventArgs e)
+        {
+            isNewClass = false;
+            if (currentPath == "")
+                MessageBox.Show("Выберите файл!!!");
+            else 
+            {
+                SampleAssembly = Assembly.LoadFrom(currentPath);
+                types = SampleAssembly.GetTypes();
+                foreach (Type myType in types)
+                {
+                   // listCreateObjects.Items.Add(getName(myType.ToString()));
+                    listOfClasses.Items.Add(getName(myType.ToString()));
+                }
+                isNewClass = true;
+                textBox1.Text = "";
+                MessageBox.Show("Класс добавлен");
+            }
         }
         
     }

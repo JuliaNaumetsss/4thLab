@@ -40,6 +40,10 @@
             this.cleanMyList = new System.Windows.Forms.Button();
             this.serialization = new System.Windows.Forms.Button();
             this.deserialization = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.AddClass = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listOfClasses
@@ -156,11 +160,45 @@
             this.deserialization.UseVisualStyleBackColor = true;
             this.deserialization.Click += new System.EventHandler(this.deserialization_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(182, 222);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(129, 41);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "выберите файл (формат dll)";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(184, 269);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(127, 20);
+            this.textBox1.TabIndex = 13;
+            // 
+            // AddClass
+            // 
+            this.AddClass.Location = new System.Drawing.Point(184, 308);
+            this.AddClass.Name = "AddClass";
+            this.AddClass.Size = new System.Drawing.Size(101, 23);
+            this.AddClass.TabIndex = 14;
+            this.AddClass.Text = "добавить класс";
+            this.AddClass.UseVisualStyleBackColor = true;
+            this.AddClass.Click += new System.EventHandler(this.AddClass_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(631, 402);
+            this.Controls.Add(this.AddClass);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.deserialization);
             this.Controls.Add(this.serialization);
             this.Controls.Add(this.cleanMyList);
@@ -194,6 +232,10 @@
         private System.Windows.Forms.Button cleanMyList;
         private System.Windows.Forms.Button serialization;
         private System.Windows.Forms.Button deserialization;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button AddClass;
     }
 }
 
