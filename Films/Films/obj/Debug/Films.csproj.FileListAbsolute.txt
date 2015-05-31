@@ -1,0 +1,11 @@
+D:\Projects\FourthLab\Films\Films\bin\Debug\Films.exe.config
+D:\Projects\FourthLab\Films\Films\bin\Debug\Films.exe
+D:\Projects\FourthLab\Films\Films\bin\Debug\Films.pdb
+D:\Projects\FourthLab\Films\Films\bin\Debug\MainClass.dll
+D:\Projects\FourthLab\Films\Films\bin\Debug\MainClass.pdb
+D:\Projects\FourthLab\Films\Films\obj\Debug\Films.csprojResolveAssemblyReference.cache
+D:\Projects\FourthLab\Films\Films\obj\Debug\Films.Form1.resources
+D:\Projects\FourthLab\Films\Films\obj\Debug\Films.Properties.Resources.resources
+D:\Projects\FourthLab\Films\Films\obj\Debug\Films.csproj.GenerateResource.Cache
+D:\Projects\FourthLab\Films\Films\obj\Debug\Films.exe
+D:\Projects\FourthLab\Films\Films\obj\Debug\Films.pdb
