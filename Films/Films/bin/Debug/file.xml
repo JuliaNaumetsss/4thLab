@@ -1,31 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MyListCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <myList>
-    <Films xsi:type="Cartoons">
-      <name>Гадкий я</name>
-      <year>2010</year>
-      <director>Пьер Коффин, Крис Рено</director>
-      <producer>Джон Коэн, Крис Меледандри, Джанет Хили</producer>
-      <feature>Мультфильм</feature>
-      <voiceOfTheFilm>Стив Карелл, Джейсон Сигел, Джули Эндрюс</voiceOfTheFilm>
-      <duration>95 мин</duration>
-    </Films>
-    <Films xsi:type="Horror">
-      <name>Сердце ангела</name>
-      <year>1987</year>
-      <director>Алан Паркер</director>
-      <producer>Алан Маршал</producer>
-      <feature>Ужасы</feature>
-      <filmCompany>TriStar Pictures</filmCompany>
-    </Films>
-    <Films xsi:type="Melodrama">
-      <name>Дневники вампира</name>
-      <year>2009</year>
-      <director>Джули Плек</director>
-      <producer>Майкл Саби</producer>
-      <feature>Мелодрама</feature>
-      <actors>Нина Добрев, Пол Уэсли, Йен Сомерхолдер</actors>
-      <countOfPart>6</countOfPart>
+    <Films xsi:type="Fiction">
+      <name>Интерстеллар</name>
+      <year>2014</year>
+      <director>Кристофер Нолан</director>
+      <producer>Кристофер Нолан, Эмма Томас, Линда Обст</producer>
+      <feature>Фантастика</feature>
+      <voiceOfTheFilm>Мэттью Макконахи, Энн Хэтэуэй</voiceOfTheFilm>
+      <boxOffice>672 млн</boxOffice>
     </Films>
   </myList>
 </MyListCollection>

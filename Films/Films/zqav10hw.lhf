@@ -27,38 +27,34 @@ namespace Films
         public Type[] extraTypes, types;
         public string currentPath;
         public Assembly SampleAssembly;
-
-        // создаем объект указанного типа
+        public int countOfNewObjects = 3;
         public object GetInstance(string strFullyQualifiedName)
         {
             Type t = Type.GetType(strFullyQualifiedName);
             return Activator.CreateInstance(t);
         }
-        // получаем неполное имя класса
         private string getName(string fullName)
         {
             return fullName.Substring(fullName.IndexOf(".") + 1, fullName.Length - fullName.IndexOf(".") - 1);
         }
-        // добавление нового объекта
         private void Add_Click(object sender, EventArgs e)
         {
             string typeOfClass = "";
-            // если объект, который мы хотим создать имеет тип прописанный в программе
+            //MessageBox.Show(listOfClasses.SelectedIndex.ToString());
             if (listOfClasses.SelectedIndex < 3)
             {
                 typeOfClass = "Films." + listOfClasses.SelectedItem.ToString();
                 current = GetInstance(typeOfClass);
             }
-            // тип содаваемого объекта новый(полученный из dll)
             else
             {
-                current = Activator.CreateInstance(types[listOfClasses.SelectedIndex - 3]);
+                current = Activator.CreateInstance(types[listOfClasses.SelectedIndex - countOfNewObjects]);
             }
             myList.Add(current);
             listCreateObjects.Items.Add(getName(current.GetType().ToString()));
             
         }
-        // удаление объекта
+
         private void delete_Click(object sender, EventArgs e)
         {
             if (listCreateObjects.SelectedIndex != -1)
@@ -68,17 +64,19 @@ namespace Films
                 informationList.Items.Clear();
             }
         }
-        // используется для отображения на экран свойств выбранного объекта
+
         private void informationAboutObject(Type myType, System.Reflection.PropertyInfo[] propertyInfo)
         {
             informationList.Items.Clear();
+            //informationList.Text = "";
             informationList.Items.Add(getName(myType.ToString()));
             foreach (System.Reflection.PropertyInfo info in propertyInfo)
             {
+                //informationList.Text = informationList.Text + info.Name + ": " + info.GetValue(current).ToString() + "\n";
                 informationList.Items.Add(info.Name + ": " + info.GetValue(current).ToString());
             }
         }
-        // получение свойств об объекте
+
         private void listCreateObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listCreateObjects.SelectedIndex == -1)
@@ -91,12 +89,12 @@ namespace Films
                 informationAboutObject(myType, propertyInfo);
             }
         }
-        //изменение свойств объекта. Если нажата кнопка, то записывается новое значение
+
         private void changeButton_Click(object sender, EventArgs e)
         {
             inputFlag = true;
         }
-        // редактирование свойств объекта
+
         private void edit_Click(object sender, EventArgs e)
         {
             informationList.Items.Clear();
@@ -143,7 +141,7 @@ namespace Films
             }
             informationAboutObject(myType, propertyInfo);
         }
-        // очищаем список от объектов
+
         private void cleanMyList_Click(object sender, EventArgs e)
         {
             listCreateObjects.Items.Clear();
@@ -151,7 +149,7 @@ namespace Films
             editionField.Text = "";
             myList.Clear();
         }
-        // сериализация
+
         private void serialization_Click(object sender, EventArgs e)
         {
             informationList.Items.Clear();
@@ -166,28 +164,28 @@ namespace Films
             writer.Close();
             MessageBox.Show("Сериализация прошла успешно");
         }
-        // срздаем массив типов наших объектов
         private void getTypesArray()
         {
             if (isNewClass == true)
             {
-                extraTypes = new Type[types.Length + 3];
-                int count = 3;
+                extraTypes = new Type[types.Length + countOfNewObjects];
+                //int count = 3;
                 foreach (Type tempType in types)
                 {
-                    extraTypes[count] = tempType;
-                    ++count;
+                    extraTypes[countOfNewObjects] = tempType;
+                    ++countOfNewObjects;
                 }
             }
             else
             {
                 extraTypes = new Type[3];
             }
+            //extraTypes = new Type[3];
             extraTypes[0] = typeof(Cartoons);
             extraTypes[1] = typeof(Fiction);
             extraTypes[2] = typeof(Melodrama);
         }
-        // десериализация
+
         private void deserialization_Click(object sender, EventArgs e)
         {
             informationList.Items.Clear();
@@ -202,12 +200,13 @@ namespace Films
             foreach (object obj in myList)
                 listCreateObjects.Items.Add(getName(obj.ToString()));
         }
-        // выбираем dll-ку, которую хоти загрузить ( в textBox1.Text записывается путь)
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Text = openFileDialog1.FileName;
+                //openFileDialog1.Filter = "Text Files (.dll)|*.dll";
                 currentPath = textBox1.Text;
                 string buf = currentPath.Substring(currentPath.IndexOf(".") + 1, currentPath.Length - currentPath.IndexOf(".") - 1);
                 if (buf != "dll")
@@ -220,9 +219,11 @@ namespace Films
             }
             
         }
-        // добавление нового класса в программу
+
         private void AddClass_Click(object sender, EventArgs e)
         {
+
+            //getTypesArray();
             isNewClass = false;
             if (currentPath == "")
                 MessageBox.Show("Выберите файл!!!");
@@ -233,26 +234,24 @@ namespace Films
                 { 
                     types = SampleAssembly.GetTypes(); 
                 }
-                // в случае ошибки при загрузке dll
                 catch
                 {
                     MessageBox.Show("Не удалось загрузить библиотеку");
-                    currentPath = "";
                     return;
                 }
+                getTypesArray();
                 foreach (Type myType in types)
                 {
-                    // плагин должен иметь основной тип - Film, иначе, он не будет загружен
-                    if (myType.BaseType == typeof(Film))
-                    {
+                    //if (myType.BaseType == typeof(Film))
+                    //{
                         listOfClasses.Items.Add(getName(myType.ToString()));
-                        isNewClass = true;
-                    }
+                        //isNewClass = true;
+                    //}
                 }
-                if (isNewClass)
+                //if (isNewClass)
                     MessageBox.Show("Класс добавлен");
-                else
-                    MessageBox.Show("dll не соответсвует формату");
+               /* else
+                    MessageBox.Show("dll не соответсвует формату");*/
                 textBox1.Text = "";
                 currentPath = "";
             }
